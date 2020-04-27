@@ -1,0 +1,45 @@
+
+<div class="pageCamera">
+
+  <div class="btnFermer" (click)="fermer()" [routerLink]="[ '/Test/wfrmTest_Johann.aspx/ajout-frais' ]">
+    <mat-icon class="iconClose">close</mat-icon>
+  </div>
+  
+  <div class="divCapture"
+    [style.visibility]="this.photoPrise ? 'hidden' : 'visible'"
+    [style.width]="this.photoPrise ? '0%' : 'auto'"
+    [style.height]="this.photoPrise ? '0%' : '100vh'">
+    
+    <video #video class="video" autoplay
+      [style.visibility]="this.photoPrise ? 'hidden' : 'visible'"
+      [style.width]="this.photoPrise ? '0%' : '100%'"
+      [style.height]="this.photoPrise ? '0%' : 'auto'"></video>
+  </div>
+  
+  <div class="photoPrise">
+    <canvas #canvas class="video"></canvas>
+  </div>
+  
+  <div class="takeShot" [style.visibility]="this.photoPrise ? 'hidden' : 'visible'">
+      <div class="tourBtn">
+        <button class="btnPhoto" (click)="capture()"></button>
+      </div>
+  </div>
+  
+  <div class="row btnValidation" [style.visibility]="this.photoPrise ? 'visible' : 'hidden'">
+    <div class="boutons">
+      <button class="bouton annuler"><mat-icon>clear</mat-icon></button>
+      <button class="bouton valider"><mat-icon>done</mat-icon></button>
+    </div>
+  </div>
+  
+  <!--
+  <app-photo-prise [photo]="this.photoPrise"></app-photo-prise>
+  -->
+  
+  <!-- 
+  <img class="imgPhoto" src="https://pixabay.com/static/uploads/photo/2016/01/17/04/29/rain-drops-1144448_960_720.jpg" alt="Rain Drops">
+  -->
+  
+</div>
+  

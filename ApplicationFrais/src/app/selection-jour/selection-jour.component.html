@@ -1,0 +1,47 @@
+
+<app-header 
+    [title]="title"
+    [retour]="retour"
+    [iconType]="iconType"></app-header>
+
+
+    <div class="row headerRecherche">
+        <div style="margin: 0 auto; vertical-align: middle;">
+            <input class="inputDatePicker" [matDatepicker]="datepicker" [value]="day">
+            <mat-datepicker-toggle style="color: white;" [for]="datepicker"></mat-datepicker-toggle>
+            <mat-datepicker #datepicker></mat-datepicker>
+        </div>
+    </div>
+
+    <!-- Liste des jours -->
+    <div class="listeJours">
+        <mat-list *ngFor="let jourFrais of fraisJour; let jourIndex = index">
+            <!-- Jour -->
+            <div class="row" [routerLink]="[ 'detail-journee', this.datesJour[jourIndex]]">
+                <div class="col">
+                    <p>{{jourFrais.labelJour}}</p>
+                </div>
+                <div class="col">
+                    <p>{{jourFrais.date}}</p>
+                </div>
+                <div class="col">
+                    <p [style.font-style]="jourFrais.montantTotalJour > 0 ? 'normal' : 'italic'">{{jourFrais.montantTotalJour > 0 ? jourFrais.montantTotalJour + ' €' : 'Aucun frais saisi'}}</p>
+                </div>
+                <div class="col" [style.visibility]="jourFrais.avertissement.niveauImportance > 0 ? 'visible' : 'hidden'">
+                    <!-- Ajouter l'avertissement -->
+                    <mat-icon
+                        [style.color]="jourFrais.avertissement.niveauImportance == 1 ? '#FFCC00'
+                            : jourFrais.avertissement.niveauImportance == 2 ? '#FF8F00'
+                            : jourFrais.avertissement.niveauImportance == 3 ? '#FF4040' : 'transparent'"
+                        [style.visibility]="jourFrais.avertissement.niveauImportance > 3 ? 'hidden' : 'visible'"
+                        [style.width]="jourFrais.avertissement.niveauImportance > 3 ? '0px' : 'auto'"
+                        [style.height]="jourFrais.avertissement.niveauImportance > 3 ? '0px' : 'auto'">warning</mat-icon>
+                    <mat-icon style="color: #FF4040;"
+                        [style.visibility]="jourFrais.avertissement.niveauImportance > 3 ? 'visible' : 'hidden'">error_outline</mat-icon>
+                </div>
+            </div>
+            <!-- Fin Jour -->
+            <mat-divider></mat-divider>
+        </mat-list>
+    </div>
+

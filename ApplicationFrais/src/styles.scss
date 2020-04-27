@@ -1,0 +1,15 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body {
+    margin: 0 auto;
+    max-width: 600px;
+    font-family: "Segoe UI", "Helvetica", "Arial", sans-serif;
+    line-height: 1.5;
+    padding: 0em 1em;
+    color: #555;
+    background-color: rgb(247, 247, 247);
+}
+
+@import "~bootstrap/dist/css/bootstrap.css";
+

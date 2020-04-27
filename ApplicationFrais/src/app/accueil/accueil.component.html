@@ -1,0 +1,59 @@
+
+<app-header
+    [title]="title"
+    [retour]="retour"
+    [iconType]="iconType"></app-header>
+
+
+<!-- sélection mois date -->
+<div class="row headerRecherche">
+    <div style="margin: 0 auto; vertical-align: middle;">
+        <input class="inputDatePicker" [matDatepicker]="monthYearPicker" [value]="date">
+        <mat-datepicker-toggle style="color: white;" [for]="monthYearPicker"></mat-datepicker-toggle>
+        <mat-datepicker #monthYearPicker
+            startView="multi-year"
+            (yearSelected)="choixAnnee($event)"
+            (monthSelected)="choixMois($event, monthYearPicker)"></mat-datepicker>
+    </div>
+</div>
+
+<!-- Liste de carte des mois -->
+<div class="listeMois">
+    <mat-list *ngFor="let frais of fraisMois; let fraisIndex = index">
+        <div class="row fraisElement" [routerLink]="[ 'selection-jour', this.datesMois[fraisIndex]]">
+            <div class="col-6">
+                <p class="element"
+                    [style.color]="frais.avertissement.niveauImportance == 0 && frais.montantTotalMois > 0 ? '#5CBB3D' 
+                        : frais.avertissement.niveauImportance == 1 ? '#CAD821' 
+                        : frais.avertissement.niveauImportance == 2 ? '#FF9900'
+                        : '#555'">{{this.fraisMoisString[fraisIndex]}}</p>
+            </div>
+            <div class="col-6">
+                <div class="row">
+                    <p class="element" [style.font-style]="frais.montantTotalMois > 0 ? 'normal' : 'italic'">{{frais.montantTotalMois > 0 ? frais.montantTotalMois + ' €' : 'Aucun frais saisi'}}</p>
+                    <!-- ajouter avertissement -->
+                    <div class="infoAvertissement"
+                        style="margin-left: 20px;"
+                        [style.visibility]="frais.montantTotalMois == 0 ? 'hidden' : 'visible'"
+                        [style.background-color]="frais.avertissement.niveauImportance == 0 ? '#5CBB3D' : frais.avertissement.niveauImportance == 1 ? '#CAD821' : '#FF9900'"></div>
+                </div>
+            </div>
+        </div>
+        <mat-divider></mat-divider>
+    </mat-list>
+</div>
+
+<!-- Bouton d'ajout de frais -->
+<button class="btnAjoutFrais" [routerLink]="[ 'ajout-frais' ]">
+    <mat-icon>add</mat-icon>
+    AJOUTER FRAIS
+</button> 
+
+<!-- Icônes d'ajout
+
+    <mat-icon>add</mat-icon>
+    add_box
+    add_circle
+    add_circle_outline
+
+-->

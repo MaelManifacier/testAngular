@@ -1,0 +1,7 @@
+
+<app-header 
+[title]="title"
+[retour]="retour"
+[iconType]="iconType"></app-header>
+
+<app-formulaire-ajout-frais [frais]="this.frais" (sendFrais)="setNewFrais($event)"></app-formulaire-ajout-frais>

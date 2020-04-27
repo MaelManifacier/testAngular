@@ -1,0 +1,137 @@
+
+<app-header 
+    [title]="title"
+    [retour]="retour"
+    [iconType]="iconType"></app-header>
+
+<!-- au changement de jour, refaire getFrais avec la date -->
+<div class="row headerRecherche">
+    <div style="margin: 0 auto; vertical-align: middle;">
+        <button class="boutonRechercheJour" (click)="dayBefore()">
+            <mat-icon class="iconRecherche">chevron_left</mat-icon>
+        </button>
+        
+        <!-- Input date -->
+        <!--<mat-form-field class="datePickerJour">
+            <mat-label>Date du jour</mat-label>
+            <input matInput [matDatepicker]="picker">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>-->
+        <input class="inputDatePicker" [matDatepicker]="datepicker" [value]="date">
+        <mat-datepicker-toggle style="color: white;" [for]="datepicker"></mat-datepicker-toggle>
+        <mat-datepicker #datepicker></mat-datepicker>
+        <button class="boutonRechercheJour" (click)="dayAfter()">
+            <mat-icon class="iconRecherche">chevron_right</mat-icon>
+        </button>
+    </div>
+</div>
+
+
+<div [routerLink]="[ 'ajout-frais', this.dateJour]" class="btnAjoutFrais">
+    Ajouter un frais
+</div>
+
+<div *ngFor="let unFrais of frais">
+    <h4>{{unFrais.typeFrais}}</h4>
+    <p>{{unFrais.montant}} €</p>
+</div>
+
+
+<div class="listeFrais">
+    <mat-list *ngFor="let frais of fraisDetail">
+        <!-- Frais -->
+        <div [ngClass]="(frais.avertissementMontant.niveauImportance == 0 && frais.avertissementFacture.niveauImportance == 0) ? 'valid' : ''">
+            <div class="row">
+                <p class="element">{{frais.typeFrais}}</p>
+                <p class="element">{{frais.montant}} €</p>
+                <!-- Icon photo présente -->
+                <div class="row element" style="padding-left: 5%;"
+                    [style.visibility]="frais.facture ? 'visible' : 'hidden'">
+                    <mat-icon class="icon"
+                        style="color: rgb(51, 168, 204);">insert_photo</mat-icon>
+                </div>
+                <!-- Icon photo non présente -->
+                <div class="row element"
+                    [style.visibility]="frais.avertissementFacture.niveauImportance > 0 ? 'visible' : 'hidden'">
+                    <mat-icon style="color: #FF8F00;">error_outline</mat-icon>
+                </div>
+                <!-- Boutons modifier / supprimer -->
+                <div class="boutonsDroite">
+                    <!-- Mettre des évènements pour routerLink vers l'élément de modification, supprimer l'élément -->
+                    <button class="btnModifier element">Modifier</button>
+                    <mat-icon>clear</mat-icon>
+                </div>
+            </div>
+            <div class="row">
+                <p class="element">{{frais.etat}}</p>
+                <!-- Avertissement montant -->
+                <div class="row element" [style.visibility]="frais.avertissementMontant.niveauImportance > 0 ? 'visible' : 'hidden'">
+                    <mat-icon class="icon" [style.color]="frais.avertissementMontant.niveauImportance == 1 ? '#FFCC00' : '#FF8F00'">warning</mat-icon>
+                    <p class="element">Montant</p>
+                </div>
+                <!-- Mois Remboursement -->
+                <div class="row boutonsDroite"
+                    [style.visibility]="frais.moisRemboursement.mois != '' ? 'visible' : 'hidden'">
+                    <mat-icon class="icon" style="color: #33CC33;">done</mat-icon>
+                    <p class="element">{{frais.moisRemboursement.mois}}</p>
+                </div>
+                <!-- Refus de remboursement -->
+                <div class="row boutonsDroite"
+                    [style.visibility]="frais.moisRemboursement.justificationRefus != '' ? 'visible' : 'hidden'">
+                    <mat-icon class="icon" matTooltip="frais.moisRemboursement.justificationRefus">attach_file</mat-icon>
+                    <p class="element" style="color: rgb(231, 54, 54); font-style: italic;">Refusé</p>
+                </div>
+            </div>
+        </div>
+        <!-- Fin Frais -->
+        <mat-divider></mat-divider>
+    </mat-list>
+</div>
+
+<!--
+<br><br>
+
+<mat-icon>warning</mat-icon>
+<mat-icon>plus_one</mat-icon>
+<mat-icon>autorenew</mat-icon>
+<mat-icon>credit_card</mat-icon>
+<mat-icon>done</mat-icon>
+<mat-icon>done_all</mat-icon>
+<mat-icon>euro_symbol</mat-icon>
+<mat-icon>power_settings_new</mat-icon>
+<mat-icon>clear</mat-icon>
+<mat-icon>close</mat-icon>
+
+<br>
+
+<mat-icon>attach_file</mat-icon>
+<mat-icon>insert_emoticon</mat-icon>
+<mat-icon>insert_photo</mat-icon>
+<mat-icon>arrow_left</mat-icon>
+<mat-icon>arrow_right</mat-icon>
+<mat-icon>chevron_left</mat-icon>
+<mat-icon>chevron_right</mat-icon>
+
+<mat-icon>photo_library</mat-icon>
+
+<mat-icon>notification_important</mat-icon>
+<mat-icon>error</mat-icon>
+<mat-icon>error_outline</mat-icon>
+<mat-icon>feedback</mat-icon>
+
+<br>
+
+<mat-icon>remove_circle_outline</mat-icon>
+<mat-icon>remove_circle</mat-icon>
+<mat-icon>remove</mat-icon>
+<mat-icon>delete</mat-icon>
+
+<mat-icon>link_off</mat-icon>
+
+<mat-icon>create</mat-icon>
+<mat-icon>settings</mat-icon>
+<mat-icon>search</mat-icon>
+-->
+
+

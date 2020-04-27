@@ -1,0 +1,81 @@
+
+<!-- Affichage des erreurs -->
+<div class="row" style="background-color: #FF8F00; color: white; font-size: 14px; padding-left: 20px; height: 25px; line-height: 25px">
+        <p>Un exemple d'erreur</p>
+</div>
+
+<!-- implémenter formulaire dans le scss -->
+<div class="formulaire" style="margin-top: 1vh;">
+
+    <form style="width: 100%;">
+
+        <!-- Ajout de facture -->
+        <div class="form-div">
+            <button class="btnAjoutFacture" [routerLink]="[ 'ajout-frais/camera' ]">
+                <mat-icon class="icon">wallpaper</mat-icon>
+                + Facture
+            </button> 
+        </div>
+
+        <!-- Date du frais - Si l'on vient de la page d'accueil, la date doit être settée sur la date du jour -->
+        <div class="form-div">
+            <mat-form-field>
+                <mat-label>Date</mat-label>
+                <input matInput [matDatepicker]="datepicker" [value]="dateFrais" name="dateFrais">
+                <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+                <mat-datepicker #datepicker></mat-datepicker>
+            </mat-form-field>
+        </div>
+
+        <!-- Type de frais -->
+        <div class="form-div">
+            <mat-form-field style="width: 100%;">
+                <mat-label>Types de frais</mat-label>
+                <mat-select [(ngModel)]="frais.typeFrais" name="selected">
+                <mat-option *ngFor="let unType of typeFrais" [value]="unType.No">
+                    {{unType.type}}
+                </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <!-- Montant et nb de Km -->
+        <div class="row">
+            <div class="col">
+                <mat-form-field style="width: 100%;">
+                    <mat-label>Montant</mat-label>
+                    <input matInput placeholder="Ex. 13.50 €" [(ngModel)]="frais.montant" name="montant">
+                </mat-form-field>
+            </div>
+            <div class="col">
+                <mat-form-field style="width: 100%;">
+                    <mat-label>Nombre de Km</mat-label>
+                    <input matInput placeholder="Ex. 250" [(ngModel)]="frais.nbKm" name="nbKm">
+                </mat-form-field>
+            </div>
+        </div>
+
+        <!-- justification -->
+        <div class="row">
+            <mat-form-field style="width: 100%;" [style.visibility]="remboursementAuSeuil ? 'hidden' : 'visible'">
+                <mat-label>Justification de dépassement</mat-label>
+                <textarea matInput placeholder="Ex. Repas avec responsable"
+                    [(ngModel)]="frais.justificationDepassement" name="justification"></textarea>
+            </mat-form-field>
+            <mat-checkbox [(ngModel)]="remboursementAuSeuil" name="checkboxRemboursement">Être remboursé au seuil</mat-checkbox>
+        </div>
+    </form>
+
+    <mat-divider></mat-divider>
+
+</div>
+
+
+<!-- Boutons Ajouter / Annuler -->
+<div class="row divBtnValidation">
+    <div class="boutons">
+    <button class="col bouton annuler"><mat-icon>clear</mat-icon></button>
+    <button class="col bouton valider"><mat-icon>done</mat-icon></button>
+    </div>
+</div>
+
